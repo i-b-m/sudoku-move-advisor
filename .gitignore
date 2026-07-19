@@ -1,0 +1,43 @@
+# Build output
+bin/
+obj/
+
+# Test output
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+
+# User-specific files
+*.user
+*.rsuser
+*.suo
+
+# VS Code
+.vscode/*
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Rider / JetBrains
+.idea/
+
+# Logs
+logs/
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# NuGet
+*.nupkg
+*.snupkg
+
+# Local environment / temp
+*.tmp
+*.temp
+*.cache
+
+# Optional: coverage folders
+coverage/
