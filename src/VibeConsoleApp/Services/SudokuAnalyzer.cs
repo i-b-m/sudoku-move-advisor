@@ -226,6 +226,7 @@ public sealed class SudokuAnalyzer
             var columnEntries = candidateMap.Where(entry => entry.Key.Column == column).ToList();
             for (var value = 1; value <= 9; value++)
             {
+                // Find all entries in the current column that contain the candidate value
                 var matches = columnEntries.Where(entry => entry.Value.Contains(value)).ToList();
                 if (matches.Count == 1)
                 {
@@ -246,20 +247,43 @@ public sealed class SudokuAnalyzer
         return null;
     }
 
+    /// <summary>
+    /// Finds a Hidden Single move in the 3x3 boxes of the given candidate map.
+    /// </summary>
+    /// <param name="candidateMap">A dictionary mapping each empty cell's coordinates (row, column) to a list of possible candidate values.</param>
+    /// <returns>A SudokuMoveSuggestion object representing the Hidden Single move in a 3x3 box, or null if no Hidden Single is found.</returns>
+    /// <remarks>
+    /// A Hidden Single occurs when a candidate value can only appear in one cell within a 3x3 box, even if that cell has multiple candidates. This method searches the candidate map for such cases in each 3x3 box and returns the first Hidden Single found as a suggested move.
+    /// </remarks>
+    /// <example>
+    /// Example usage:
+    /// <code>
+    /// var parser = new SudokuParser();
+    /// var analyzer = new SudokuAnalyzer();
+    /// var sudokuBoard = parser.Parse("53..7....6..195....98......6.8...6...34..8..6...3.4..1.7...2..6....28....419..5....8..79");
+    /// var candidateMap = analyzer.BuildCandidateMap(sudokuBoard);
+    /// var hiddenSingleSuggestion = analyzer.FindHiddenSingleInBoxes(candidateMap);
+    /// </code>
+    /// </example>
     private static SudokuMoveSuggestion? FindHiddenSingleInBoxes(Dictionary<(int Row, int Column), List<int>> candidateMap)
     {
         for (var boxRow = 0; boxRow < 3; boxRow++)
         {
             for (var boxColumn = 0; boxColumn < 3; boxColumn++)
             {
+                // Calculate the starting row and column indices for the current 3x3 box
                 var startRow = boxRow * 3;
                 var startColumn = boxColumn * 3;
+                
+                // Get all entries in the candidate map that belong to the current 3x3 box
                 var boxEntries = candidateMap
                     .Where(entry => entry.Key.Row >= startRow && entry.Key.Row < startRow + 3 && entry.Key.Column >= startColumn && entry.Key.Column < startColumn + 3)
                     .ToList();
 
+                // Iterate through each possible candidate value (1 to 9) to find Hidden Singles in the current box
                 for (var value = 1; value <= 9; value++)
                 {
+                    // Find all entries in the current box that contain the candidate value
                     var matches = boxEntries.Where(entry => entry.Value.Contains(value)).ToList();
                     if (matches.Count == 1)
                     {
