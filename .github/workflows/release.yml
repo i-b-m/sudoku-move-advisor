@@ -21,8 +21,6 @@ jobs:
       matrix:
         rid:
           - win-x64
-          - linux-x64
-          - osx-x64
 
     steps:
       - name: Checkout
