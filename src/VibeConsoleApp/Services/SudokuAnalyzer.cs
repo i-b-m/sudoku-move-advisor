@@ -283,7 +283,7 @@ public sealed class SudokuAnalyzer
                 // Iterate through each possible candidate value (1 to 9) to find Hidden Singles in the current box
                 for (var value = 1; value <= 9; value++)
                 {
-                    // Find all entries in the current box that contain the candidate value
+                    // Find all entries in the current 3x3 box that contain the candidate value
                     var matches = boxEntries.Where(entry => entry.Value.Contains(value)).ToList();
                     if (matches.Count == 1)
                     {
