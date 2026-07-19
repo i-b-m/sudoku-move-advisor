@@ -1,0 +1,16 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": ".NET Launch SudokuMoveAdvisor",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "dotnet: build",
+      "program": "${workspaceFolder}/src/VibeConsoleApp/bin/Debug/net8.0/VibeConsoleApp.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/src/VibeConsoleApp",
+      "console": "integratedTerminal",
+      "stopAtEntry": false
+    }
+  ]
+}

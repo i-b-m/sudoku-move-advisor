@@ -1,0 +1,37 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "dotnet: restore",
+      "type": "process",
+      "command": "dotnet",
+      "args": ["restore"],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "dotnet: build",
+      "type": "process",
+      "command": "dotnet",
+      "args": ["build"],
+      "group": "build",
+      "dependsOn": "dotnet: restore",
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "dotnet: run",
+      "type": "process",
+      "command": "dotnet",
+      "args": ["run", "--project", "src/VibeConsoleApp"],
+      "dependsOn": "dotnet: build",
+      "problemMatcher": []
+    },
+    {
+      "label": "dotnet: test",
+      "type": "process",
+      "command": "dotnet",
+      "args": ["test"],
+      "dependsOn": "dotnet: build",
+      "problemMatcher": "$msCompile"
+    }
+  ]
+}
