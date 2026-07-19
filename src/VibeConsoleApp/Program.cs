@@ -32,6 +32,7 @@ internal static class Program
                 // Add command line arguments to the configuration if any are provided
                 if (args.Length > 0)
                 {
+                    // Add command line arguments to the configuration
                     config.AddCommandLine(args);
                 }
             })
