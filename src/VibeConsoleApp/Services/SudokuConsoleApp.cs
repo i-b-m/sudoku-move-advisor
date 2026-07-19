@@ -110,8 +110,8 @@ public sealed class SudokuConsoleApp
             // If the PrettyPrintBoard option is enabled, print the current Sudoku board to the console
             if (_options.PrettyPrintBoard)
             {
-                _logger.LogInformation("Aktuelles Sudoku:");
-                _logger.LogInformation(board.ToPrettyString());
+                Console.WriteLine("Aktuelles Sudoku:");
+                Console.WriteLine(board.ToPrettyString());
             }
 
             // Analyze the Sudoku board and suggest the next move
@@ -123,28 +123,28 @@ public sealed class SudokuConsoleApp
                 return Task.FromResult(2);
             }
 
-            _logger.LogInformation("Vorgeschlagener Zug: Zeile {Row}, Spalte {Column} = {Value}", suggestion.Row, suggestion.Column, suggestion.Value);
-            _logger.LogInformation("Strategie: {Strategy}", suggestion.Strategy);
-            _logger.LogInformation("Begründung: {Reason}", suggestion.Reason);
+            Console.WriteLine("Vorgeschlagener Zug: Zeile {0}, Spalte {1} = {2}", suggestion.Row, suggestion.Column, suggestion.Value);
+            Console.WriteLine("Strategie: {0}", suggestion.Strategy);
+            Console.WriteLine("Begründung: {0}", suggestion.Reason);
 
             // If the ExplainCandidates option is enabled and there are candidates for the suggested move, print them to the console
             if (_options.ExplainCandidates && suggestion.Candidates.Count > 0)
             {
-                _logger.LogInformation("Kandidaten im Zielfeld: {Candidates}", string.Join(", ", suggestion.Candidates));
+                Console.WriteLine("Kandidaten im Zielfeld: {0}", string.Join(", ", suggestion.Candidates));
             }
 
             // If there are elimination steps associated with the suggestion, log them to the console
             if (suggestion.EliminationSteps.Count > 0)
             {
-                _logger.LogInformation("Zwischenschritte:");
+                Console.WriteLine("Zwischenschritte:");
                 foreach (var step in suggestion.EliminationSteps)
                 {
-                    _logger.LogInformation("- {Step}", step);
+                    Console.WriteLine("- {0}", step);
                 }
             }
 
             // Log the suggested move with detailed information for debugging and analysis
-            _logger.LogInformation("Sudoku-Zug vorgeschlagen: R{Row} C{Column} = {Value} via {Strategy}", suggestion.Row, suggestion.Column, suggestion.Value, suggestion.Strategy);
+            Console.WriteLine("Sudoku-Zug vorgeschlagen: R{0} C{1} = {2} via {3}", suggestion.Row, suggestion.Column, suggestion.Value, suggestion.Strategy);
             // Return an exit code of 0 to indicate successful execution
             return Task.FromResult(0);
         }
