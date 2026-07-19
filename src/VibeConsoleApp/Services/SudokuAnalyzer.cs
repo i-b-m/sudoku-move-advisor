@@ -201,6 +201,24 @@ public sealed class SudokuAnalyzer
         return null;
     }
 
+    /// <summary>
+    /// Finds a Hidden Single move in the columns of the given candidate map.
+    /// </summary>
+    /// <param name="candidateMap">A dictionary mapping each empty cell's coordinates (row, column) to a list of possible candidate values.</param>
+    /// <returns>A SudokuMoveSuggestion object representing the Hidden Single move in a column, or null if no Hidden Single is found.</returns>
+    /// <remarks>
+    /// A Hidden Single occurs when a candidate value can only appear in one cell within a column, even if that cell has multiple candidates. This method searches the candidate map for such cases in each column and returns the first Hidden Single found as a suggested move.   
+    /// </remarks>
+    /// <example>
+    /// Example usage:
+    /// <code>
+    /// var parser = new SudokuParser();    
+    /// var analyzer = new SudokuAnalyzer();
+    /// var sudokuBoard = parser.Parse("53..7....6..195....98......6.8...6...34..8..6...3.4..1.7...2..6....28....419..5....8..79");
+    /// var candidateMap = analyzer.BuildCandidateMap(sudokuBoard);
+    /// var hiddenSingleSuggestion = analyzer.FindHiddenSingleInColumns(candidateMap);
+    /// </code>
+    /// </example>
     private static SudokuMoveSuggestion? FindHiddenSingleInColumns(Dictionary<(int Row, int Column), List<int>> candidateMap)
     {
         for (var column = 0; column < 9; column++)
