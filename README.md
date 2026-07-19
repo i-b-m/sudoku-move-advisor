@@ -338,4 +338,4 @@ Die App zeigt:
 
 ## Hinweis zu xUnit
 
-xUnit ist ein verbreitetes Testframework für .NET. Für dieses Projekt reicht das völlig aus; du musst dafür nichts Besonderes lernen, um die vorhandenen Tests einfach per `dotnet test` auszuführen.
+xUnit ist ein verbreitetes Testframework für .NET. Zum Ausführen der vorhandenen Tests reicht `dotnet test`.

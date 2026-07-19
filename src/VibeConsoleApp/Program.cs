@@ -5,6 +5,9 @@ using Microsoft.Extensions.Logging;
 using VibeConsoleApp.Options;
 using VibeConsoleApp.Services;
 
+// <summary>
+// The main entry point for the VibeConsoleApp application. 
+// </summary>
 namespace VibeConsoleApp;
 
 internal static class Program
