@@ -226,6 +226,7 @@ public sealed class SudokuAnalyzer
             var columnEntries = candidateMap.Where(entry => entry.Key.Column == column).ToList();
             for (var value = 1; value <= 9; value++)
             {
+                // Find all entries in the current column that contain the candidate value
                 var matches = columnEntries.Where(entry => entry.Value.Contains(value)).ToList();
                 if (matches.Count == 1)
                 {
@@ -270,13 +271,16 @@ public sealed class SudokuAnalyzer
         {
             for (var boxColumn = 0; boxColumn < 3; boxColumn++)
             {
+                // Calculate the starting row and column indices for the current 3x3 box
                 var startRow = boxRow * 3;
                 var startColumn = boxColumn * 3;
+                
                 // Get all entries in the candidate map that belong to the current 3x3 box
                 var boxEntries = candidateMap
                     .Where(entry => entry.Key.Row >= startRow && entry.Key.Row < startRow + 3 && entry.Key.Column >= startColumn && entry.Key.Column < startColumn + 3)
                     .ToList();
 
+                // Iterate through each possible candidate value (1 to 9) to find Hidden Singles in the current box
                 for (var value = 1; value <= 9; value++)
                 {
                     // Find all entries in the current 3x3 box that contain the candidate value
