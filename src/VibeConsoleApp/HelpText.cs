@@ -25,10 +25,10 @@ VERWENDUNG:
   {AppName} [OPTIONEN]
 
 OPTIONEN:
-  -h, --help              Zeigt diese Hilfe an und beendet das Programm.
+  -h, --help                Zeigt diese Hilfe an und beendet das Programm.
       --puzzle=<81 Zeichen> Uebergibt ein Sudoku direkt als 81-stelligen String.
-                          Leere Felder werden als 0 dargestellt (9x9, zeilenweise).
-                          Ueberschreibt den Wert aus der appsettings.json.
+                            Leere Felder werden als 0 dargestellt (9x9, zeilenweise).
+                            Ueberschreibt den Wert aus der appsettings.json.
 
 KONFIGURATION:
   Ohne --puzzle liest die App das Sudoku aus der appsettings.json:
