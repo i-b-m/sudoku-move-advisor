@@ -338,4 +338,71 @@ Die App zeigt:
 
 ## Hinweis zu xUnit
 
-xUnit ist ein verbreitetes Testframework für .NET. Zum Ausführen der vorhandenen Tests reicht `dotnet test`.
+xUnit ist ein verbreitetes Testframework für .NET. Für dieses Projekt reicht das völlig aus; du musst dafür nichts Besonderes lernen, um die vorhandenen Tests einfach per `dotnet test` auszuführen.
+
+## Branch- und PR-Workflow
+
+Das Repository nutzt einen geschützten `main`-Branch. Direkte Commits auf `main` sind nicht möglich; jede Änderung läuft über einen Pull Request.
+
+Regeln (über GitHub Rulesets):
+
+- `main`: Pull Request erforderlich, kein direktes Pushen, kein Löschen, kein Force Push, lineare Historie. Da es sich um ein Ein-Personen-Projekt handelt, ist die Zahl der erforderlichen Approvals auf `0` gesetzt.
+- `feature/**`: frei bepushbar, nur Force-Push-Schutz. Kein Löschschutz, damit Feature-Branches nach dem Merge entfernt werden können.
+
+Typischer Ablauf:
+
+```bash
+git switch -c feature/mein-feature
+git add .
+git commit -m "Beschreibung der Änderung"
+git push -u origin feature/mein-feature
+gh pr create --base main --head feature/mein-feature --fill
+gh pr merge --squash --delete-branch
+git switch main
+git pull
+```
+
+Feature-Branches werden nach dem Merge automatisch gelöscht, wenn unter **Settings → General → Pull Requests** die Option **Automatically delete head branches** aktiviert ist.
+
+## Continuous Integration (CI)
+
+Die CI-Pipeline (`.github/workflows/build-and-test.yml`) läuft bei `push` und `pull_request` und führt aus:
+
+- Repository auschecken
+- .NET 8 SDK einrichten
+- `dotnet restore`, `dotnet build`, `dotnet test`
+
+Die Ergebnisse sind im **Actions**-Tab des Repositories, direkt am Commit (Häkchen/Kreuz) sowie im jeweiligen Pull Request unter „Checks" sichtbar.
+
+Hinweis: Die reine CI-Pipeline erzeugt keine ablieferbaren Binaries als Artefakt. Das Bauen und Bereitstellen fertiger Programmdateien übernimmt die Release-Pipeline.
+
+## Releases und Binaries
+
+Die Release-Pipeline (`.github/workflows/release.yml`) erzeugt fertige, ausführbare Programmdateien und stellt sie zum Download bereit.
+
+Eigenschaften:
+
+- Auslöser: Push eines Tags im Format `v*` (z. B. `v1.0.0`) oder manueller Start über „Run workflow".
+- Baut self-contained Single-File-Binaries für **Windows (win-x64)**, **Linux (linux-x64)** und **macOS (osx-x64)**. Auf dem Zielsystem muss kein .NET installiert sein.
+- Die Version wird automatisch aus dem Tag abgeleitet (`v1.2.3` → `1.2.3`).
+- Windows wird als `.zip`, Linux und macOS werden als `.tar.gz` gepackt.
+
+Wo die Binaries landen:
+
+- **Als Build-Artefakt** unter Actions → jeweiliger Run → Abschnitt „Artifacts" (mit Ablaufdatum).
+- **Am GitHub Release** unter dem Reiter **Releases**, dauerhaft an das jeweilige Release angehängt. Das ist der eigentliche Download-Ort für Nutzer.
+
+Release erstellen:
+
+```bash
+git tag v1.0.0
+git push origin v1.0.0
+```
+
+Danach baut die Pipeline alle drei Plattformen und legt automatisch ein Release mit den angehängten Binaries an.
+
+Voraussetzung: Unter **Settings → Actions → General → Workflow permissions** müssen „Read and write permissions" erlaubt sein, damit die Pipeline ein Release anlegen kann.
+
+## Lizenz
+
+Dieses Projekt steht unter der MIT-Lizenz – siehe die `LICENSE`-Datei für Details.
