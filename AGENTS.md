@@ -56,6 +56,24 @@ Indirekt mit Kandidatenreduktion:
 - Kommentare sollen Logik, Annahmen, Strategie und nicht offensichtliche Entscheidungen erklären.
 - Sinnlose, redundante oder bloß den Code wiederholende Kommentare sollen entfallen.
 
+## Wie man an diesem Projekt arbeitet
+
+- Build/Test: `dotnet restore`, `dotnet build`, `dotnet test`.
+- Run: `dotnet run --project src/VibeConsoleApp`.
+- Konfiguration: `src/VibeConsoleApp/appsettings.json`, `SUDOKU_`-Umgebungsvariablen, `--puzzle=<81 Zeichen>` über die Kommandozeile.
+- Key-Dateien:
+  - `src/VibeConsoleApp/Program.cs` – Host, DI, Logging, Konfiguration.
+  - `src/VibeConsoleApp/Services/SudokuConsoleApp.cs` – Programmlogik, Eingabeauflösung, Ausgabe und Fehlerbehandlung.
+  - `src/VibeConsoleApp/Services/SudokuAnalyzer.cs` – Strategie-Reihenfolge und Suggestion-Logik.
+  - `src/VibeConsoleApp/Options/SudokuOptions.cs` – Optionen für Puzzle, PrettyPrintBoard, ExplainCandidates.
+  - `src/VibeConsoleApp/Services/SudokuParser.cs` – Puzzle-Parsing und Validierung.
+  - `src/VibeConsoleApp/Models/SudokuMoveSuggestion.cs` – Ergebnisstruktur für Vorschläge.
+  - `tests/VibeConsoleApp.Tests/SudokuAnalyzerTests.cs` – Regressionstests und erwartetes Verhalten.
+- Wenn du eine neue Strategie oder Ausgabeänderung einführst, frage vorher nach, wenn das Format oder die Domänenabsicht nicht klar ist.
+- Änderungen sollen lokal und zielgerichtet bleiben: eine konkrete Verbesserung pro Commit, mit passenden Tests.
+- Priorisiere Erklärbarkeit und nachvollziehbare Begründungen gegenüber maximaler Lösungsstärke.
+- Stimme neue Solver-Erweiterungen auf das bestehende Ziel ab: einen Vorschlag für den nächsten plausiblen Zug.
+
 ## Guardrails
 
 - Keine erfundenen Sudoku-Regeln oder Behauptungen.
