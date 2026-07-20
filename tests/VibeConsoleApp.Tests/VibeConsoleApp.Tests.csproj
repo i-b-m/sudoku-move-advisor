@@ -20,6 +20,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="../../src/VibeConsoleApp/VibeConsoleApp.csproj" />
+    <ProjectReference Include="../../src/SudokuMoveAdvisor.Core/SudokuMoveAdvisor.Core.csproj" />
   </ItemGroup>
 </Project>

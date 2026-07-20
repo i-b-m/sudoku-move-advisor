@@ -1,0 +1,32 @@
+name: deploy-gh-pages
+
+on:
+  push:
+    branches: [ main, master ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Restore Web project
+        run: dotnet restore src/SudokuMoveAdvisor.Web/SudokuMoveAdvisor.Web.csproj
+
+      - name: Publish Blazor WebAssembly app
+        run: dotnet publish src/SudokuMoveAdvisor.Web/SudokuMoveAdvisor.Web.csproj -c Release -o ./publish
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./publish/wwwroot
+          publish_branch: gh-pages
+          clean: true
