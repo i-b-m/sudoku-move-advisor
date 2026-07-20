@@ -1,5 +1,7 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using SudokuMoveAdvisor.Core.Models;
+using SudokuMoveAdvisor.Core.Services;
 using VibeConsoleApp.Options;
 
 namespace VibeConsoleApp.Services;

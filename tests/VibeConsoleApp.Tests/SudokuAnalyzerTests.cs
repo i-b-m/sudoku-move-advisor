@@ -1,4 +1,4 @@
-using VibeConsoleApp.Services;
+using SudokuMoveAdvisor.Core.Services;
 using Xunit;
 
 namespace VibeConsoleApp.Tests;

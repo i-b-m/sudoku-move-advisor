@@ -319,6 +319,18 @@ dotnet test
 
 Standardmäßig liest die App das Sudoku aus `appsettings.json`.
 
+## Web UI
+
+Das Projekt enthält jetzt eine Blazor WebAssembly-Webanwendung unter `src/SudokuMoveAdvisor.Web`.
+Die Weboberfläche ermöglicht Puzzle-Eingabe, Analyse und Anzeige der vorgeschlagenen Zugempfehlung direkt im Browser.
+
+## GitHub Pages Deployment
+
+Ein Workflow wurde hinzugefügt unter `.github/workflows/deploy-gh-pages.yml`.
+Bei einem Push auf `main` oder `master` wird die Blazor-App gebaut und der veröffentlichte Inhalt automatisch in den Branch `gh-pages` deployt.
+Der Workflow verwendet dabei das Verzeichnis `publish/wwwroot` aus der Blazor-Publish-Ausgabe.
+Nach Aktivierung von GitHub Pages ist die Website typischerweise unter `https://<owner>.github.io/<repo>/` erreichbar.
+
 Alternativ per CLI:
 
 ```bash
